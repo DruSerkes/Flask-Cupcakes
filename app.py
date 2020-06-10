@@ -11,13 +11,30 @@ app.config['SECRET_KEY'] = "so-so-secret"
 
 connect_db(app)
 
-# TODO Start with Part Two
+# TODO 
 # http://curric.rithmschool.com/springboard/exercises/flask-cupcakes/
 
 
 # Lecture Notes
 # http://curric.rithmschool.com/springboard/lectures/flask-rest-json-api/
 
+
+
+# Part Five: Start on the frontend
+# Make this route:
+
+# GET /
+
+# Write Javascript (using axios and jQuery) that:
+
+# queries the API to get the cupcakes and adds to the page
+# handles form submission to both let the API know about the new cupcake and updates the list on the page to show it
+# (You do not need to use WTForms to make this form; this is a possibility in the further study.)
+
+@app.route('/')
+def home_page():
+    """ display home page """
+    return render_template('index.html')
 
 @app.route('/api/cupcakes')
 def get_all_cupcakes():
@@ -81,5 +98,6 @@ def delete_cupcake(cupcake_id):
     db.session.commit()
 
     return jsonify(message=f"Cupcake Deleted; id:{cupcake_id}")
+
 
 
