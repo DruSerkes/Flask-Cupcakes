@@ -32,17 +32,15 @@ def home_page():
 @app.route('/api/cupcakes')
 def get_all_cupcakes():
     """ Returns JSON for all cupcakes """
-    cupcakes = Cupcake.query.all()
-    serialized = [serialize_cupcakes(c) for c in cupcakes]
-    return jsonify(cupcakes=serialized)
+    cupcakes = [cupcake.serialize_cupcakes() for cupcake in Cupcake.query.all()]
+    return jsonify(cupcakes=cupcakes)
 
 
 @app.route('/api/cupcakes/<int:cupcake_id>')
 def get_cupcake(cupcake_id):
     """ Returns JSON for a cupcake """
     cupcake = Cupcake.query.get_or_404(cupcake_id)
-    serialized = serialize_cupcakes(cupcake)
-    return jsonify(cupcake=serialized)
+    return jsonify(cupcake=cupcake.serialize_cupcakes())
 
 
 @app.route('/api/cupcakes', methods=['POST'])
@@ -62,8 +60,7 @@ def make_cupcake():
     db.session.add(new_cupcake)
     db.session.commit()
 
-    serialized = serialize_cupcakes(new_cupcake)
-    return (jsonify(cupcake=serialized), 201)
+    return (jsonify(cupcake=new_cupcake.serialize_cupcakes()), 201)
 
 
 @app.route('/api/cupcakes/<int:cupcake_id>', methods=['PATCH'])
@@ -73,14 +70,14 @@ def update_cupcake(cupcake_id):
         Returns JSON for updated cupcake 
     """
     cupcake = Cupcake.query.get_or_404(cupcake_id)
+
     cupcake.flavor = request.json.get('flavor', cupcake.flavor)
     cupcake.size = request.json.get('size', cupcake.size) 
     cupcake.rating = request.json.get('rating', cupcake.rating)
     cupcake.image = request.json.get('image', cupcake.image)
     db.session.commit()
     
-    serialized = serialize_cupcakes(cupcake)
-    return jsonify(cupcake=serialized)
+    return jsonify(cupcake=cupcake.serialize_cupcakes())
 
 
 @app.route('/api/cupcakes/<int:cupcake_id>', methods=['DELETE'])

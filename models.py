@@ -21,3 +21,16 @@ class Cupcake(db.Model):
     rating = db.Column(db.Float, nullable=False)
 
     image = db.Column(db.Text, default='https://tinyurl.com/demo-cupcake')
+
+
+
+    def serialize_cupcakes(self):
+        """ Serialize a cupcake SQLAlchemy object into python dictionary """
+        return {
+        'id' : self.id,
+        'flavor' : self.flavor,
+        'size' : self.size,
+        'rating' : self.rating,
+        'image' : self.image
+    }
+        
