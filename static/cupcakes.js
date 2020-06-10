@@ -1,5 +1,5 @@
 // Cupcakes JS
-const $cupcakeList = $('.cupcake-list');
+const $cupcakeContainer = $('.cupcake-container');
 const $cupcakeForm = $('.cupcake-form');
 const BASE_URL = '/api/cupcakes';
 
@@ -14,7 +14,7 @@ async function displayCupcakes() {
 	response = await axios.get(BASE_URL);
 	cupcakes = response.data.cupcakes;
 	for (cupcake of cupcakes) {
-		$cupcakeList.append(makeLI(cupcake));
+		$cupcakeContainer.append(makeDiv(cupcake));
 	}
 }
 // POST Request to Cupcake API - adds new cupcake to DOM
@@ -23,7 +23,7 @@ async function makeCupcake() {
 	const flavor = $('#flavor').val();
 	const size = $('#size').val();
 	const rating = $('#rating').val();
-	const image = $('#image').val() ? null : $('#image').val;
+	const image = $('#image').val() ? $('#image').val() : null;
 	// API POST Request
 	if (image !== null) {
 		const response = await axios.post(BASE_URL, { flavor, size, rating, image });
@@ -36,16 +36,24 @@ async function makeCupcake() {
 }
 
 // Creates a new LI for a cupcake
-const makeLI = (cupcake) => {
-	const $newLi = $('<li>');
-	$newLi.text(titleCase(cupcake.flavor));
-	$newLi.addClass('my-3');
-	$newLi.data('id', cupcake.flavor);
-
-	$seeMore = $('<button class="btn btn-sm text-info">See More</button>');
-	$newLi.append($seeMore);
-	return $newLi;
+const makeDiv = (cupcake) => {
+	const $newDiv = $('<div>');
+	$newDiv.data('id', cupcake.id);
+	$newDiv.addClass('list-group-item justify-content-center text-center');
+	addCupcakeInfo($newDiv);
+	return $newDiv;
 };
+
+function addCupcakeInfo(li) {
+	$newh2 = $(`<h2 class='text-primary'>${titleCase(cupcake.flavor)}</h2>`);
+	$newImg = $(`<img src=${cupcake.image} class="img img-thumbnail" />`);
+	$newRating = $(`<p class='text-info'>Rating: ${cupcake.rating}</p>`);
+	$newSize = $(`<p class='text-info'>Size: ${cupcake.size}</p>`);
+	li.append($newh2);
+	li.append($newImg);
+	li.append($newRating);
+	li.append($newSize);
+}
 
 // Returns string in Title Case
 function titleCase(str) {
