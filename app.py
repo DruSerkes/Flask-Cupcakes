@@ -13,20 +13,13 @@ connect_db(app)
 
 # TODO 
 # http://curric.rithmschool.com/springboard/exercises/flask-cupcakes/
-
-
 # Lecture Notes
 # http://curric.rithmschool.com/springboard/lectures/flask-rest-json-api/
 
 
-
-# Part Five: Start on the frontend
-# Make this route:
-
-
 @app.route('/')
 def home_page():
-    """ display home page """
+    """ Display home page """
     return render_template('index.html')
 
 @app.route('/api/cupcakes')
