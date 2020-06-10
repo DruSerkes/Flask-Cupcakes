@@ -23,13 +23,6 @@ connect_db(app)
 # Part Five: Start on the frontend
 # Make this route:
 
-# GET /
-
-# Write Javascript (using axios and jQuery) that:
-
-# queries the API to get the cupcakes and adds to the page
-# handles form submission to both let the API know about the new cupcake and updates the list on the page to show it
-# (You do not need to use WTForms to make this form; this is a possibility in the further study.)
 
 @app.route('/')
 def home_page():

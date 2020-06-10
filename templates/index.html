@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-    <h1 class='display-1'>Cupcakes</h1>
+    <h1 class='display-1 mb-3'>Cupcakes</h1>
+    <hr>
 
     <ul class="cupcake-list my-3">
 
@@ -18,8 +19,9 @@
     <form action="/api/cupcakes" method='POST' class='cupcake-form my-3'>
         <label for="flavor">Flavor: <input type="text" id="flavor" name="flavor" placeholder="chocolate" required></label>
         <label for="size">Size: <input type="text" id="size" name="size" placeholder="medium" required></label>
-        <label for="rating">Rating: <input type="number" id="rating" name="rating" min=0 max=10 step=0.5 required></label>
+        <label for="rating">Rating: <input type="number" id="rating" name="rating" min=0 max=10 step=0.5 placeholder=5.0 required></label>
         <label for="image">Image URL: <input type="URL" id="image" name="image" placeholder="chocolate"></label>
+        <input type="submit" value="Create Cupcake" class='btn btn-success'>
     </form>
     
 
